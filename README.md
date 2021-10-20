@@ -1,5 +1,5 @@
 # Face-Recognition-with-FaceNet
-face recognition using FaceNet
+this app is using FaceNet (tflite version) model to recognize a face. You obviously be able to use the same model to do face recognition on mobile app.    
 
 FaceNet: [A Unified Embedding for Face Recognition and Clustering](https://arxiv.org/abs/1503.03832)
 
