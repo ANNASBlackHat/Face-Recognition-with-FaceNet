@@ -36,18 +36,25 @@ def main(argv):
         if check:
             # COLOR_BGR2GRAY |COLOR_BGR2RGB
             img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            # img_gray = cv2.imread('/Users/annasblackhat/Pictures/felicia.jpg')
             faces = face_cv2.detect_face(img_gray)
             print(f'{len(faces)} faces detected...')
             for face in faces:
-                cv2.rectangle(frame, (face['x'], face['y']), (face['x'] +
-                                                              face['w'], face['y'] + face['h']), (255, 0, 0), 3)
+                x, y, w, h = face['x'], face['y'], face['w'], face['h']
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
-                face_crop = img_gray[face['y']:face['y'] +
-                                     face['h'], face['x']:face['x'] + face['w']]
-                label = face_tf.recognize(face_crop, is_training, label)
+                face_crop = img_gray[y:y+h , x:x+w]
+                label, confidence = face_tf.recognize(face_crop, is_training, label)
+                conf = ''
+                if confidence > 0.0:
+                    conf = ' ({:.2f}%)'.format(confidence)
+                image_label = label + conf
 
+                # text_size, _ = cv2.getTextSize(image_label, cv2.FONT_HERSHEY_PLAIN, 2, 3)
+                # text_w, text_h = text_size
+                # cv2.rectangle(img_gray, (x, y-10), (x + text_w, (y-10) + text_h), (0,0,0), -1)
                 cv2.putText(
-                    frame, label, (face['x'], face['y'] - 10), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0))
+                    frame, image_label, (x, y - 10), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 1)
 
                 if is_training:
                     training_count = training_count + 1

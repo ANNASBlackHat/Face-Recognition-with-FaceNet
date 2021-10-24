@@ -92,12 +92,12 @@ def recognize(img, training=False, label=''):
         if training:
             print('----- saving embedding -------')
             save_trainig(emb, label)
-            return label
+            return label, 100
         else:
             index, distance = find_nearest(emb)
             print(f'------> found : {index} ({labels[index]}) | distance: {distance}')
-            if distance > 1.2 :
-                return '[unknown]'
-            return labels[index]
+            if distance > 1.1 :
+                return '[unknown]', 0
+            return labels[index], 100.0 - (distance * 100.0)
     except Exception as e:
         print('errr', e)
