@@ -60,7 +60,7 @@ def main(argv):
                     training_count = training_count + 1
                     os.makedirs(f'temp/faces/{label}/', exist_ok=True)
                     cv2.imwrite(f'temp/faces/{label}/{label}_{time.time()}.png', face_crop)
-                    break
+                    # break
 
                 # if c % 50 == 0:
                 #     print('---- SAVING -------')
