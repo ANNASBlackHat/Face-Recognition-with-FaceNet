@@ -7,8 +7,29 @@ FaceNet: [A Unified Embedding for Face Recognition and Clustering](https://arxiv
  ![Demo App](https://github.com/ANNASBlackHat/Face-Recognition-with-FaceNet/raw/master/images/webcam%20test.png)
 
 
+### Installation      
+**Docker**     
+```
+docker build -t face-app .
+docker run --rm -v ${PWD}:/app face-app
+```
+
+**Manual Installation**       
+if you prefer to use virtual env, thats what I prefer to...     
+```
+python3 -m venv venv
+source venv/bin/active
+```
+
+then install all requirements      
+```
+pip install -r requirements.txt
+```
+
+
+
 ### Run The App     
-**Training**
+**Training**     
 ```
 python webcam.py --label jokowi --max 5
 ```
