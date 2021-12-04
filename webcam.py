@@ -44,11 +44,12 @@ def main(argv):
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 3)
 
                 face_crop = img_gray[y:y+h , x:x+w]
+                age,_ = face_tf.recognize_age(face_crop)
                 label, confidence = face_tf.recognize(face_crop, is_training, label)
                 conf = ''
                 if confidence > 0.0:
                     conf = ' ({:.2f}%)'.format(confidence)
-                image_label = label + conf
+                image_label = label + conf + ' age:' + age
 
                 # text_size, _ = cv2.getTextSize(image_label, cv2.FONT_HERSHEY_PLAIN, 2, 3)
                 # text_w, text_h = text_size

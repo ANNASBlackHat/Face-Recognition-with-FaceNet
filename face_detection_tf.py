@@ -6,11 +6,20 @@ from tinydb.operations import add, set
 import time
 import os
 import numpy as np
+import json
 
 
 detector = MTCNN()
 model = tf.lite.Interpreter('model/mobile_facenet.tflite')
 model.allocate_tensors()
+
+model_age = tf.keras.models.load_model('model/age_detection.h5')
+age_input_shape = (200,200) #or get by : model_age.get_config()['layers'][0]['config']['batch_input_shape'][1:-1]
+print(model_age.summary())
+with open('model/age_detection_labels.txt') as f:
+    age_labels = json.load(f)
+    print(type(age_labels))
+    print(age_labels[1])
 
 input_detail = model.get_input_details()
 input_shape = input_detail[0]['shape']
@@ -101,3 +110,18 @@ def recognize(img, training=False, label=''):
             return labels[index], 100.0 - (distance * 100.0)
     except Exception as e:
         print('errr', e)
+
+
+def recognize_age(face):
+    print(f'original face shape: {face.shape}')
+    face = cv2.cvtColor(np.array(face), cv2.COLOR_BGR2GRAY)
+    face = cv2.resize(face, age_input_shape)
+    face = (np.expand_dims(face, axis=-1)/255).astype(np.float32)
+    face = np.array([face])
+    #face = (np.array(face)/255).astype(np.float32)
+    print(f'face shape: {face.shape}')
+    y_hat = np.argmax(model_age.predict(face))
+    print(f'predicted class: {y_hat}')
+    age = age_labels[y_hat]
+    print(f'predicted age range: {age}')
+    return f'{age["min"]}-{age["max"]}', 0
