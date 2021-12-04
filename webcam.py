@@ -9,7 +9,7 @@ def read_args(argv):
     try:
         opts, args = getopt.getopt(argv, "l:m:", ["label=", "max="])
     except getopt.GetoptError:
-        print('python webcam.py --label Jokowo --max 5')
+        print('example: python webcam.py --label Jokowo --max 5')
         sys.exit(2)
 
     is_training, label, max = False, '', 5
