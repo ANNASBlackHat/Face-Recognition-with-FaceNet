@@ -15,7 +15,7 @@ docker run --rm -v ${PWD}:/app face-app
 ```
 
 **Manual Installation**       
-if you prefer to use virtual env, thats what I prefer to...     
+you can use virtual env if you prefer       
 ```
 python3 -m venv venv
 source venv/bin/active

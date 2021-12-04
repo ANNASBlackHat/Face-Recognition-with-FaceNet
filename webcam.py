@@ -9,7 +9,7 @@ def read_args(argv):
     try:
         opts, args = getopt.getopt(argv, "l:m:", ["label=", "max="])
     except getopt.GetoptError:
-        print('example: python webcam.py --label Jokowo --max 5')
+        print('example: python webcam.py --label Jokowi --max 5')
         sys.exit(2)
 
     is_training, label, max = False, '', 5
@@ -36,7 +36,7 @@ def main(argv):
         if check:
             # COLOR_BGR2GRAY |COLOR_BGR2RGB
             img_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # img_gray = cv2.imread('/Users/annasblackhat/Pictures/felicia.jpg')
+            # img_gray = cv2.imread('/Users/annasblackhat/Pictures/jokowi-1.jpeg')
             faces = face_cv2.detect_face(img_gray)
             print(f'{len(faces)} faces detected...')
             for face in faces:
